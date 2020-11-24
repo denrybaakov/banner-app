@@ -1,0 +1,72 @@
+.setting
+  display: flex 
+  flex-direction: column 
+  align-items: center
+  min-width: 450px
+  background-color: $gray
+  height: 100vh
+  padding: 3rem 3rem
+  border-right: 1px solid rgba(#C4C4C4, 0.2)
+  overflow-y: hidden
+  &::scrollbar
+    width: 0px;
+    opacity: 0
+    background: rgba(255, 255, 255, 0.0);
+
+  &__title 
+    margin-top: 0
+    margin-bottom: 2rem
+    text-align: center
+    font-weight: 300
+  &__subtitle
+    font-weight: 200 
+    text-align: center 
+    margin-top: 2rem
+    margin-bottom: 2rem
+  &__group-wh
+    // width: 100%
+    margin-bottom: 1rem
+    display: flex 
+    align-items: center 
+    justify-content: space-between
+  &__width 
+    width: 48%
+    // margin-right: 1rem
+  &__height 
+    width: 48%
+  &__inpTitle, &__inpText, &__inpUrl
+    width: 100%
+    margin-bottom: 1rem
+  &__color 
+    width: 100%
+  &__colorRadio
+    display: flex 
+    justify-content: space-around
+    align-items: center
+    margin-bottom: 5rem
+  &__code 
+    margin-bottom: 5rem
+    width: 100%
+  &__group-btn
+    width: 100%
+    display: flex 
+    justify-content: space-around
+    align-items: center
+
+
+
+@media screen and (max-height: 800px)
+  .setting 
+    overflow: scroll
+
+@media screen and (max-width: 1100px)
+  .setting
+    min-width: 400px
+
+@media screen and (max-width: 998px)
+  .main
+    display: flex 
+    flex-direction: column-reverse
+  .setting
+    width: 100%
+

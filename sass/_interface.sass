@@ -1,0 +1,95 @@
+.main 
+  height: 100%
+input
+  &[type="number"], &[type="text"], textarea
+    background-color: $white
+    border: 1px solid $blue
+    color: $blueText
+    font-size: 1.2rem
+    padding: 0.8rem 0.5rem
+    border-radius: 8px
+    &:active, &:focus,
+      outline: 0
+      box-shadow: 0 0 5px rgba(#18A0FB, 0.5)
+      border: 1px solid rgba(#18A0FB, 0.5)
+    &::placeholder 
+      color: #18A0FB
+      font-weight: 100
+      font-size: 1.2rem
+
+.setting__radio 
+  position: absolute
+  z-index: -1
+  opacity: 0
+  & + label:before 
+    content: ''
+    display: inline-block
+    width: 33px
+    height: 33px 
+    background-color: red
+    border-radius: 50%
+    cursor: pointer
+
+  &:checked + label:before 
+    outline: none
+    box-shadow: 0px 0px 0px 3px rgba($blue, 0.9)
+    border-: 1rem
+    border: none
+  &--red:before
+    background-color: rgba(tomato, 0.9) !important
+  &--orange:before
+    background-color: rgba(#F88B0C, 0.9) !important
+  &--yellow:before
+    background-color: rgba(#EFE609, 0.9) !important
+  &--white:before
+    // border: 1px solid $blue
+    background-color: $white !important
+  &--green:before
+    background-color: rgba(#4EDB0C, 0.9) !important
+  &--indigo:before
+    background-color: rgba(#0C21DB, 0.9) !important
+  &--purple:before
+    background-color: rgba(#F20E97, 0.9) !important
+
+textarea 
+  background-color: $white
+  border: 1px solid $blue
+  color: black
+  font-size: 0.9rem
+  padding: 0.8rem 0.5rem
+  border-radius: 8px
+  width: 100%
+  height: 70px
+  resize: none
+  &:active, &:focus,
+    outline: 0
+    box-shadow: 0 0 5px rgba(#18A0FB, 0.5)
+    border: 1px solid rgba(#18A0FB, 0.5)
+  &::placeholder 
+    color: #18A0FB
+    font-weight: 100
+    font-size: 1.2rem
+
+.btn 
+  padding: 0.7rem 1.5rem
+  background: #18A0FB;
+  color: $white
+  border-radius: 6px
+  font-weight: 100;
+  font-size: 15px
+  border: 1px solid #18A0FB
+  transition: background-color .5s
+  transition: color .8s
+  cursor: pointer
+  &:hover 
+    background-color: transparent
+    color: #18A0FB
+
+
+
+
+
+
+
+
+

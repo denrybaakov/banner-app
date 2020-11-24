@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avito app</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <main class="main">
+
+    <section class="setting">
+      <h2 class="setting__title">Настройки</h2>
+      <div class="setting__group-wh">
+        <input type="number" name="inpWidth" id="width" placeholder="Введите ширину" class="setting__width" value="400">
+        <input type="number" name="inpHeight" id="height" placeholder="Введите высоту" class="setting__height"
+          value="650">
+      </div>
+      <input type="text" name="inpTitle" id="title" class="setting__inpTitle" placeholder="Введите заголовок"
+        maxlength="20">
+      <input type="text" name="inpText" id="text" class="setting__inpText" placeholder="Введите текст" maxlength="90">
+      <input type="text" name="inpURL" id="url" class="setting__inpUrl" placeholder="Введите URL">
+
+
+      <div class="setting__color">
+        <h3 class="setting__subtitle">Выберите цвет:</h3>
+
+        <div class="setting__colorRadio">
+          <input type="radio" name="colorRed" id="Red" class="setting__radio ">
+          <label for="Red" class="setting__radio--red"></label>
+
+          <input type="radio" name="colorRed" id="Orange" class="setting__radio">
+          <label for="Orange" class="setting__radio--orange"></label>
+
+          <input type="radio" name="colorRed" id="Yellow" class="setting__radio ">
+          <label for="Yellow" class="setting__radio--yellow"></label>
+
+          <input type="radio" name="colorRed" id="White" class="setting__radio" data-color="White" checked>
+          <label for="White" class="setting__radio--white"></label>
+
+          <input type="radio" name="colorRed" id="Green" class="setting__radio ">
+          <label for="Green" class="setting__radio--green"></label>
+
+          <input type="radio" name="colorRed" id="Indigo" class="setting__radio ">
+          <label for="Indigo" class="setting__radio--indigo"></label>
+
+          <input type="radio" name="colorRed" id="Purple" class="setting__radio ">
+          <label for="Purple" class="setting__radio--purple"></label>
+        </div>
+      </div>
+      <div class="setting__code">
+        <h3 class="setting__subtitle">Код HTML/JSON</h3>
+        <textarea class="setting__textCode" name="code" id="textCode" cols="30" rows="10"></textarea>
+      </div>
+      <div class="setting__group-btn">
+        <button class="setting__btn btn" id="json">JSON</button>
+        <button class="setting__btn btn" id="html">HTML</button>
+        <button class="setting__btn btn" id="png">Экспорт .png</button>
+      </div>
+    </section>
+
+    <section class="preview">
+      <a class="preview__container" href="#" target="_blank">
+        <div class="preview__image-block">
+          <img src="" alt="Path not Found">
+        </div>
+        <strong class="preview__title"></strong>
+        <p class="preview__description"></p>
+      </a>
+      <!-- <canvas id="imgConverted" style="position: absolute;  opacity: 1; z-index: 11; border: 1px solid red;">qwsdfsdfsdf</canvas> -->
+    </section>
+
+  </main>
+
+
+
+  <script src="js/main.js" id="canvasBox"></script>
+</body>
+
+</html>

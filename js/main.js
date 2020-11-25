@@ -18,7 +18,7 @@ const btnHtml = document.querySelector('#html');
 const btnPng = document.querySelector('#png');
 
 const card = {
-  width: 'width.value',
+  width: width.value,
   height: height.value,
   title: '',
   text: '',
@@ -95,7 +95,8 @@ function imageURL(imgUrl) {
       img.style.cssText = `
         width: 100%;
         heigth: 100%;
-        object-fit: cover`;
+        object-fit: cover
+        background: url('${str}');`;
     } else {
       img.alt = 'Path Not Found!';
     }
@@ -129,6 +130,49 @@ btnHtml.addEventListener('click', () => {
     .catch(error => {
       console.log('Не судьба, попробуйте что-то подругому' + error);
     });
+});
+
+
+
+
+
+btnPng.addEventListener('click', () => {
+  html2canvas(container)
+    .then(function (canvas) {
+      const dataURL = canvas.toDataURL('image/jpeg');
+      const ctx = canvas.getContext('2d');
+      // img.src = card.url;
+      // let imgCanvas = new Image();
+      let imgCanvas = document.createElement('img');
+      // imgCanvas.src = card.url;
+      // imgCanvas.crossOrigin = 'anonymous';
+      imgCanvas.crossOrigin = '';
+      imgCanvas.src = `https://cors-anywhere.herokuapp.com/${card.url}`;
+      // imgCanvas.src = card.url;
+      imgCanvas.onload = function () {
+        ctx.drawImage(imgCanvas, 10, 10, 50, 50);
+      };
+      ctx.drawImage(imgCanvas, 10, 10, 50, 50);
+      console.log(imgCanvas);
+      if (window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(canvas.msToBlob(), 'canvas-image.png');
+      } else {
+        const a = document.createElement('a');
+        // let imgInCanvas = document.createElement('img');
+        // imgInCanvas.src = card.url;
+        // imgCanvas.src = card.url;
+        container.appendChild(a);
+        a.href = canvas.toDataURL();
+        // a.append(imgInCanvas);
+        // a.href = card.url;
+        console.log(a.href + ' shoto novnoe ahref');
+        a.download = 'canvas-image.png';
+        a.click();
+        container.removeChild(a);
+      }
+    });
+
+
 });
 
 

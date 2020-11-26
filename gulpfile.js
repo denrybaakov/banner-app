@@ -3,6 +3,7 @@ const { src, dest, watch, series } = require('gulp');
 const browserSync = require('browser-sync').create();
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
+// const proxyMiddleware = require('http-proxy-middleware');
 
 
 const fileCss = src(['./css/*.css', '!./css/*.min.css']);
@@ -23,8 +24,16 @@ function bs() {
   serveSass();
   browserSync.init({
     server: {
-      baseDir: "./"
+      baseDir: "./",
+      middleware: function (req, res, next) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        // console.log(res);
+        next();
+      }
+
     },
+    port: 3999,
+    cors: true,
     browser: 'google chrome',
     notify: false
   });

@@ -142,13 +142,13 @@ btnPng.addEventListener('click', () => {
       const dataURL = canvas.toDataURL('image/jpeg');
       const ctx = canvas.getContext('2d');
       // img.src = card.url;
-      // let imgCanvas = new Image();
-      let imgCanvas = document.createElement('img');
+      let imgCanvas = new Image();
+      // let imgCanvas = document.createElement('img');
       // imgCanvas.src = card.url;
       // imgCanvas.crossOrigin = 'anonymous';
       imgCanvas.crossOrigin = '';
-      imgCanvas.src = `https://cors-anywhere.herokuapp.com/${card.url}`;
-      // imgCanvas.src = card.url;
+      // imgCanvas.src = `https://cors-anywhere.herokuapp.com/${card.url}`;
+      imgCanvas.src = card.url;
       imgCanvas.onload = function () {
         ctx.drawImage(imgCanvas, 10, 10, 50, 50);
       };
@@ -158,15 +158,16 @@ btnPng.addEventListener('click', () => {
         window.navigator.msSaveBlob(canvas.msToBlob(), 'canvas-image.png');
       } else {
         const a = document.createElement('a');
-        // let imgInCanvas = document.createElement('img');
+        let imgInCanvas = document.createElement('img');
         // imgInCanvas.src = card.url;
-        // imgCanvas.src = card.url;
+        imgCanvas.src = card.url;
+        // a.href = card.url;
         container.appendChild(a);
         a.href = canvas.toDataURL();
-        // a.append(imgInCanvas);
-        // a.href = card.url;
+        // a.href = canvas.toDataURL();
+        a.append(imgCanvas);
         console.log(a.href + ' shoto novnoe ahref');
-        a.download = 'canvas-image.png';
+        a.download = 'export_' + Date.now() + 'img.png';
         a.click();
         container.removeChild(a);
       }

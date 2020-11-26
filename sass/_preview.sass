@@ -1,37 +1,56 @@
 .preview
-  position: relative
+  position: absolute 
+  top: 0 
+  right: 0
+  // position: relative
   min-width: 500px
-  width: 100%
-  height: 100%
-  padding: 3rem 3rem
+  // width: calc(100% - 35%) 
+  width: 63vw
+  height: 100vh
+  // margin: 30px 0 -30px auto
+  // padding: 1rem 3rem
+  // padding-bottom: 40rem
+  padding-top: 2rem
   display: flex 
   align-items: center 
   justify-content: center
-  // overflow-y: scroll
+  overflow-y: scroll
+  border: 5px solid red
   // overflow-x: scroll
   &__container
+    margin-top: 1rem
+    margin-bottom: 1rem
     display: inline-block
     position: absolute 
     width: 400px
     height: 650px
-    top: 50%
-    // left: 50%
-    transform: translate(0, -50%)
+    top: 100px
+    bottom: 100px
+    max-width: 95%
+    max-height: 600px !important
+    box-shadow: 2px -1px 14px 0px #828282;
+    
+    // // left: 50%
+    // transform: translateY(-10%)
+    // transform: translate(0 , -30%)
 
   &__title 
     display: block
     margin-top: 2rem
     font-size: 1.3rem
+    text-align: center
     width: 100%
     word-wrap: break-word
   &__description 
     width: 100%
     word-wrap: break-word
+    padding-left: 1.5rem
+    padding-right: 1.5rem
   &__image-block
     display: none
     justify-content: center
-    width: 80px
-    height: 80px
+    width: 40%
+    // height: 80px
     margin: 0 0 0 auto
     // height: 500px
 
@@ -57,6 +76,34 @@ a[data-color="Purple"]
   background: linear-gradient(0deg, rgba(220,69,247,1) 0%, rgba(249,84,177,1) 66%)
 
 
+
+@media screen and ( max-width: 1180px )
+  .preview
+    width: 55vw
+
+
+
+@media screen and ( max-width: 992px )
+  .preview
+    position: static !important
+    display: block
+    width: 100%  
+    z-index: 9999999
+    display: flex 
+    align-items: center 
+    justify-content: center
+    height: 100%
+    &__container
+      position: static !important
+      margin-top: 1rem
+      margin-bottom: 1rem
+      display: inline-block
+      position: static 
+      width: 400px
+      height: 650px
+      top: none
+      bottom: none
+  
 
 
 @media screen and (max-width: 500px)

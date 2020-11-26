@@ -305,16 +305,20 @@ template {
   display: none; }
 
 .setting {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 450px;
   background-color: #F6F6F6;
-  height: 100vh;
-  padding: 3rem 3rem;
+  min-height: 100vh;
+  padding: 3rem;
   border-right: 1px solid rgba(196, 196, 196, 0.2);
   overflow-y: hidden; }
-  .setting::scrollbar {
+  .setting:scrollbar {
     width: 0px;
     opacity: 0;
     background: rgba(255, 255, 255, 0); }
@@ -337,9 +341,31 @@ template {
     width: 48%; }
   .setting__height {
     width: 48%; }
+  .setting__field {
+    position: relative;
+    width: 100%; }
   .setting__inpTitle, .setting__inpText, .setting__inpUrl {
+    position: relative;
     width: 100%;
-    margin-bottom: 1rem; }
+    margin-bottom: 1rem;
+    padding-right: 3rem !important; }
+  .setting__inpTitle-count, .setting__inpText-count, .setting__inpURL-count {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    background-color: #18A0FB;
+    color: #fff;
+    padding: 0.3rem;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    text-align: center; }
+  .setting__inpText-count {
+    background: url("../img/in2.svg") no-repeat center/75%;
+    background-color: #18A0FB; }
+  .setting__inpURL-count {
+    background: url("../img/pic.svg") no-repeat center/55%;
+    background-color: #18A0FB; }
   .setting__color {
     width: 100%; }
   .setting__colorRadio {
@@ -369,38 +395,50 @@ template {
     display: flex;
     flex-direction: column-reverse; }
   .setting {
-    width: 100%; } }
+    width: 100%;
+    position: static; } }
 
 .preview {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
   min-width: 500px;
-  width: 100%;
-  height: 100%;
-  padding: 3rem 3rem;
+  width: 63vw;
+  height: 100vh;
+  padding-top: 2rem;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  overflow-y: scroll;
+  border: 5px solid red; }
   .preview__container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     display: inline-block;
     position: absolute;
     width: 400px;
     height: 650px;
-    top: 50%;
-    transform: translate(0, -50%); }
+    top: 100px;
+    bottom: 100px;
+    max-width: 95%;
+    max-height: 600px !important;
+    box-shadow: 2px -1px 14px 0px #828282; }
   .preview__title {
     display: block;
     margin-top: 2rem;
     font-size: 1.3rem;
+    text-align: center;
     width: 100%;
     word-wrap: break-word; }
   .preview__description {
     width: 100%;
-    word-wrap: break-word; }
+    word-wrap: break-word;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem; }
   .preview__image-block {
     display: none;
     justify-content: center;
-    width: 80px;
-    height: 80px;
+    width: 40%;
     margin: 0 0 0 auto; }
 
 a[data-color="Red"] {
@@ -424,6 +462,31 @@ a[data-color="Indigo"] {
 a[data-color="Purple"] {
   background: linear-gradient(0deg, #dc45f7 0%, #f954b1 66%); }
 
+@media screen and (max-width: 1180px) {
+  .preview {
+    width: 55vw; } }
+
+@media screen and (max-width: 992px) {
+  .preview {
+    position: static !important;
+    display: block;
+    width: 100%;
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; }
+    .preview__container {
+      position: static !important;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      position: static;
+      width: 400px;
+      height: 650px;
+      top: none;
+      bottom: none; } }
+
 @media screen and (max-width: 500px) {
   .preview {
     width: 100%;
@@ -437,7 +500,7 @@ input[type="number"], input[type="text"], input textarea {
   border: 1px solid #18A0FB;
   color: #1082CE;
   font-size: 1.2rem;
-  padding: 0.8rem 0.5rem;
+  padding: 0.8rem 0.5rem 0.8rem 0.5rem;
   border-radius: 8px; }
   input[type="number"]:active, input[type="number"]:focus, input[type="text"]:active, input[type="text"]:focus, input textarea:active, input textarea:focus {
     outline: 0;

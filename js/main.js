@@ -17,9 +17,12 @@ const btnJson = document.querySelector('#json');
 const btnHtml = document.querySelector('#html');
 const btnPng = document.querySelector('#png');
 
+const count = document.querySelector('span.setting__inpTitle-count');
+const maxLength = title.getAttribute('maxlength');
+
 const card = {
-  width: width.value,
-  height: height.value,
+  width: `${width.value}px`,
+  height: `${height.value}px`,
   title: '',
   text: '',
   url: '',
@@ -28,8 +31,8 @@ const card = {
 
 function sizeCard(width, height) {
   width.addEventListener('change', () => {
-    if (width.value > 800) {
-      width.value = 799;
+    if (width.value > 1200) {
+      width.value = 1199;
       container.style.width = `${width.value}px`;
     } else if (width.value <= 99) {
       width.value = 100;
@@ -41,8 +44,8 @@ function sizeCard(width, height) {
   });
 
   height.addEventListener('change', () => {
-    if (height.value > 700) {
-      height.value = 699;
+    if (height.value > 800) {
+      height.value = 799;
       container.style.height = `${height.value}px`;
     } else if (height.value <= 99) {
       height.value = 100;
@@ -56,10 +59,17 @@ function sizeCard(width, height) {
 }
 
 function titleCard(title) {
-  title.addEventListener('input', () => {
-    if (title.value.length >= 0 && title.value.length < 21) {
+  title.addEventListener('input', (e) => {
+    const valueLength = e.target.value.length;
+    const rightCharValue = maxLength - valueLength;
+    if (rightCharValue <= 0) {
+      count.style.backgroundColor = 'tomato';
+      title.style.border = '1px solid tomato';
+    }
+    if (title.value.length >= 0 && title.value.length < 31) {
       titleStrong.textContent = title.value;
       card.title = titleStrong.textContent;
+      count.textContent = rightCharValue;
     }
   });
 }
@@ -107,6 +117,21 @@ function imageURL(imgUrl) {
   });
 }
 
+// function dataCopy(btn, toData, data) {
+//   btn.addEventListener('click', () => {
+//     textCode.textContent = '';
+//     textCode.textContent = toData;
+//     navigator.clipboard.writeText(toData)
+//       .then(() => {
+//         console.log('Скопировано');
+//         console.log(data);
+//       })
+//       .catch(err => {
+//         console.log('Не получилось скопировать', err);
+//       });
+//   });
+// }
+
 btnJson.addEventListener('click', () => {
   const cardJson = JSON.stringify(card);
   textCode.textContent = '';
@@ -133,46 +158,36 @@ btnHtml.addEventListener('click', () => {
 });
 
 
-
-
-
 btnPng.addEventListener('click', () => {
   html2canvas(container)
-    .then(function (canvas) {
+    .then(canvas => {
       const dataURL = canvas.toDataURL('image/jpeg');
       const ctx = canvas.getContext('2d');
-      // img.src = card.url;
-      let imgCanvas = new Image();
-      // let imgCanvas = document.createElement('img');
-      // imgCanvas.src = card.url;
-      // imgCanvas.crossOrigin = 'anonymous';
-      imgCanvas.crossOrigin = '';
+      let imgCanvas = document.createElement('img');
+      imgCanvas.crossOrigin = 'anonymous';
+      ctx.width = card.width;
+      ctx.height = card.height;
+      console.log(ctx.width);
       // imgCanvas.src = `https://cors-anywhere.herokuapp.com/${card.url}`;
       imgCanvas.src = card.url;
       imgCanvas.onload = function () {
-        ctx.drawImage(imgCanvas, 10, 10, 50, 50);
+        ctx.drawImage(imgCanvas, 0, 0);
       };
-      ctx.drawImage(imgCanvas, 10, 10, 50, 50);
-      console.log(imgCanvas);
       if (window.navigator.msSaveBlob) {
         window.navigator.msSaveBlob(canvas.msToBlob(), 'canvas-image.png');
       } else {
         const a = document.createElement('a');
-        let imgInCanvas = document.createElement('img');
-        // imgInCanvas.src = card.url;
         imgCanvas.src = card.url;
-        // a.href = card.url;
         container.appendChild(a);
-        a.href = canvas.toDataURL();
-        // a.href = canvas.toDataURL();
-        a.append(imgCanvas);
-        console.log(a.href + ' shoto novnoe ahref');
-        a.download = 'export_' + Date.now() + 'img.png';
+        a.href = dataURL;
+        a.download = Math.floor(Math.random() * 99) + '_Banner-Avito.png';
         a.click();
         container.removeChild(a);
       }
+    })
+    .catch(err => {
+      alert(`Произошла ошибка ${err}`);
     });
-
 
 });
 
@@ -183,5 +198,7 @@ titleCard(title);
 textCard(text);
 colorCard(colors);
 imageURL(imgUrl);
+// dataCopy(btnJson, JSON.stringify(card), card);
+// dataCopy(btnHtml, preview.innerHTML, card);
 
 setTimeout(() => console.log(card), 12000);

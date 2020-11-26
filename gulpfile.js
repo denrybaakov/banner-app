@@ -25,11 +25,11 @@ function bs() {
   browserSync.init({
     server: {
       baseDir: "./",
-      middleware: function (req, res, next) {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        // console.log(res);
-        next();
-      }
+      // middleware: function (req, res, next) {
+      //   res.setHeader('Access-Control-Allow-Origin', '*');
+      //   // console.log(res);
+      //   next();
+      // }
 
     },
     port: 3999,

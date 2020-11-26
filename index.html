@@ -14,14 +14,26 @@
     <section class="setting">
       <h2 class="setting__title">Настройки</h2>
       <div class="setting__group-wh">
-        <input type="number" name="inpWidth" id="width" placeholder="Введите ширину" class="setting__width" value="400">
+        <input type="number" name="inpWidth" id="width" placeholder="Введите ширину" class="setting__width" value="300">
         <input type="number" name="inpHeight" id="height" placeholder="Введите высоту" class="setting__height"
-          value="650">
+          value="400">
       </div>
-      <input type="text" name="inpTitle" id="title" class="setting__inpTitle" placeholder="Введите заголовок"
-        maxlength="20">
-      <input type="text" name="inpText" id="text" class="setting__inpText" placeholder="Введите текст" maxlength="90">
-      <input type="text" name="inpURL" id="url" class="setting__inpUrl" placeholder="Введите URL">
+      <label class="setting__field">
+        <input type="text" name="inpTitle" id="title" class="setting__inpTitle" placeholder="Введите заголовок"
+          maxlength="30">
+        <span class="setting__inpTitle-count">30</span>
+      </label>
+
+      <label class="setting__field">
+        <input type="text" name="inpText" id="text" class="setting__inpText" placeholder="Введите текст">
+        <span class="setting__inpText-count"></span>
+      </label>
+
+      <label class="setting__field">
+        <input type="text" name="inpURL" id="url" class="setting__inpUrl" placeholder="Введите dataURI">
+        <span class="setting__inpURL-count"></span>
+      </label>
+
 
 
       <div class="setting__color">

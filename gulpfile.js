@@ -17,6 +17,23 @@ const htmlmin = require('gulp-htmlmin');
 const tinypng = require('gulp-tinypng-compress');
 // const fileJs = src(['./dist/js/*.js', '!./dist/js/*.min.js']);
 
+// let corsMiddleware = require('cors-middleware');
+// let merry = require('merry');
+
+// let mw = merry.middleware;
+// let cors = corsMiddleware({
+//   methods: 'GET',
+//   origin: 'http://localhost:8080'
+// })
+
+// var app = merry()
+// app.use(cors)
+// app.route('GET', '/', homeRoute)
+
+// function homeRoute(req, res, ctx) {
+//   console.log(res.getHeader('access-control-allow-origin'));
+//   ctx.send(200, { msg: 'woah cors headers are all set' });
+// }
 
 
 // Static server
@@ -27,10 +44,8 @@ function bs() {
       baseDir: "./",
       // middleware: function (req, res, next) {
       //   res.setHeader('Access-Control-Allow-Origin', '*');
-      //   // console.log(res);
       //   next();
       // }
-
     },
     port: 3999,
     cors: true,
@@ -43,6 +58,16 @@ function bs() {
   watch("./css/**/*.css", minCss);
   watch("./js/*.js").on('change', browserSync.reload);
 }
+
+
+let express = require('express');
+let app = express();
+let mw = require('expressjs-mw');
+
+// let allowList = [/\.*/];
+// app.use(mw.crossOrigin.allowedOrigin(allowList));
+let allowList = ["www.g.cn", /http:\/\/localhost*/, /\*.github.com/]
+app.use(mw.crossOrigin.allowedOrigin(allowList));
 
 // sass
 function serveSass() {

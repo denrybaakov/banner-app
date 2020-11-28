@@ -409,8 +409,7 @@ template {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: scroll;
-  border: 5px solid red; }
+  overflow-y: scroll; }
   .preview__container {
     margin-top: 1rem;
     margin-bottom: 1rem;

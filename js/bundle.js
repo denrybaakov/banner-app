@@ -1,12 +1,346 @@
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./js/main.js":
+/*!********************!*\
+  !*** ./js/main.js ***!
+  \********************/
+/*! namespace exports */
+/*! exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _module_sizeCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/sizeCard */ "./js/module/sizeCard.js");
+/* harmony import */ var _module_titleCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/titleCard */ "./js/module/titleCard.js");
+/* harmony import */ var _module_textCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./module/textCard */ "./js/module/textCard.js");
+/* harmony import */ var _module_colorCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./module/colorCard */ "./js/module/colorCard.js");
+/* harmony import */ var _module_urlCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./module/urlCard */ "./js/module/urlCard.js");
+/* harmony import */ var _module_btnsCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./module/btnsCard */ "./js/module/btnsCard.js");
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const width = document.querySelector('#width');
+  const height = document.querySelector('#height');
+  const title = document.querySelector('#title');
+  const text = document.querySelector('#text');
+  const imgUrl = document.querySelector('#url');
+  const colors = document.querySelectorAll('.setting__radio');
+
+  const container = document.querySelector('.preview__container');
+
+  const btnJson = document.querySelector('#json');
+  const btnHtml = document.querySelector('#html');
+  const btnPng = document.querySelector('#png');
+
+  const card = {
+    width: `${width.value}px`,
+    height: `${height.value}px`,
+    title: '',
+    text: '',
+    url: '',
+    color: 'White'
+  };
+
+  (0,_module_sizeCard__WEBPACK_IMPORTED_MODULE_0__.default)(width, height, container, card);
+  (0,_module_titleCard__WEBPACK_IMPORTED_MODULE_1__.default)(title, card);
+  (0,_module_textCard__WEBPACK_IMPORTED_MODULE_2__.default)(text, card);
+  (0,_module_colorCard__WEBPACK_IMPORTED_MODULE_3__.default)(colors, container, card);
+  (0,_module_urlCard__WEBPACK_IMPORTED_MODULE_4__.default)(imgUrl, container, card);
+  (0,_module_btnsCard__WEBPACK_IMPORTED_MODULE_5__.default)(btnJson, btnHtml, btnPng, container, card);
+
+  setTimeout(() => console.log(card), 12000);
+});
+
+/***/ }),
+
+/***/ "./js/module/btnsCard.js":
+/*!*******************************!*\
+  !*** ./js/module/btnsCard.js ***!
+  \*******************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/html2canvas.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function btnsCard(json, html, png, container, card) {
+
+  const preview = document.querySelector('.preview');
+  const textCode = document.querySelector('#textCode');
+
+  json.addEventListener('click', () => {
+    const cardJson = JSON.stringify(card);
+    textCode.textContent = '';
+    textCode.textContent = cardJson;
+    navigator.clipboard.writeText(cardJson)
+      .then(() => {
+        console.log('Получилось скопировать JSON')
+      })
+      .catch(error => {
+        console.log('Не судьба, попробуйте что-то подругому' + error);
+      });
+  });
+
+  html.addEventListener('click', () => {
+    textCode.textContent = '';
+    textCode.textContent = preview.innerHTML;
+    navigator.clipboard.writeText(preview.innerHTML)
+      .then(() => {
+        console.log('Получилось скопировать HTML');
+      })
+      .catch(error => {
+        console.log('Не судьба, попробуйте что-то подругому' + error);
+      });
+  });
+
+
+  png.addEventListener('click', () => {
+    html2canvas__WEBPACK_IMPORTED_MODULE_0___default()(container, { useCORS: true })
+      .then(canvas => {
+        const dataURL = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+        if (window.navigator.msSaveBlob) {
+          window.navigator.msSaveBlob(canvas.msToBlob(), 'canvas-image.png');
+        } else {
+          const a = document.createElement('a');
+          container.appendChild(a);
+          a.href = dataURL;
+          a.download = Math.floor(Math.random() * 99) + '_Banner-Avito.png';
+          a.click();
+          container.removeChild(a);
+        }
+      })
+      .catch(err => {
+        alert(`Произошла ошибка ${err}`);
+      });
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (btnsCard);
+
+/***/ }),
+
+/***/ "./js/module/colorCard.js":
+/*!********************************!*\
+  !*** ./js/module/colorCard.js ***!
+  \********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+function colorCard(colors, container, card) {
+  colors.forEach(color => {
+    color.addEventListener('click', e => {
+      let colorBg = e.target.getAttribute('id');
+      container.setAttribute('data-color', colorBg);
+      card.color = colorBg;
+    });
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (colorCard);
+
+/***/ }),
+
+/***/ "./js/module/sizeCard.js":
+/*!*******************************!*\
+  !*** ./js/module/sizeCard.js ***!
+  \*******************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+function sizeCard(width, height, container, card) {
+  width.addEventListener('change', () => {
+    if (width.value > 1200) {
+      width.value = 1199;
+      container.style.width = `${width.value}px`;
+    } else if (width.value <= 99) {
+      width.value = 100;
+      container.style.width = `${width.value}px`;
+    } else {
+      container.style.width = `${width.value}px`;
+    }
+    card.width = `${width.value}px`;
+  });
+
+  height.addEventListener('change', () => {
+    if (height.value > 800) {
+      height.value = 799;
+      container.style.height = `${height.value}px`;
+    } else if (height.value <= 99) {
+      height.value = 100;
+      container.style.height = `${height.value}px`;
+    } else {
+      container.style.height = `${height.value}px`;
+    }
+    card.height = `${height.value}px`;
+  });
+
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sizeCard);
+
+/***/ }),
+
+/***/ "./js/module/textCard.js":
+/*!*******************************!*\
+  !*** ./js/module/textCard.js ***!
+  \*******************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+function textCard(text, card) {
+  const description = document.querySelector('.preview__description');
+  text.addEventListener('input', () => {
+    let str = text.value;
+    if (str.length >= 0 && str.length < 91) {
+      let resault = str.slice(0, 55) + (str.length > 55 ? "..." : "");
+      description.textContent = resault;
+      card.text = str;
+    }
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (textCard);
+
+/***/ }),
+
+/***/ "./js/module/titleCard.js":
+/*!********************************!*\
+  !*** ./js/module/titleCard.js ***!
+  \********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+function titleCard(title, card) {
+  const titleStrong = document.querySelector('.preview__title');
+  const maxLength = title.getAttribute('maxlength');
+  const count = document.querySelector('span.setting__inpTitle-count');
+
+  title.addEventListener('input', (e) => {
+    const valueLength = e.target.value.length;
+    const rightCharValue = maxLength - valueLength;
+    if (rightCharValue <= 0) {
+      count.style.backgroundColor = 'tomato';
+      title.style.border = '1px solid tomato';
+    }
+    if (title.value.length >= 0 && title.value.length < 31) {
+      titleStrong.textContent = title.value;
+      card.title = titleStrong.textContent;
+      count.textContent = rightCharValue;
+    }
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (titleCard);
+
+/***/ }),
+
+/***/ "./js/module/urlCard.js":
+/*!******************************!*\
+  !*** ./js/module/urlCard.js ***!
+  \******************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+function imageURL(imgUrl, container, card) {
+  const imgBlock = document.querySelector('.preview__image-block');
+  const img = document.querySelector('img');
+  imgUrl.addEventListener('change', () => {
+    let str = imgUrl.value;
+    if (str.length > 4) {
+      imgBlock.style.display = 'flex';
+      container.setAttribute('href', str);
+      img.src = str;
+      img.style.cssText = `
+        width: 100%;
+        heigth: 100%;
+        object-fit: cover
+        background: url('${str}');`;
+    } else {
+      img.alt = 'Path Not Found!';
+    }
+    if (str.length == 0) {
+      imgBlock.style.display = 'none';
+    }
+    card.url = str;
+  });
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (imageURL);
+
+/***/ }),
+
+/***/ "./node_modules/html2canvas/dist/html2canvas.js":
+/*!******************************************************!*\
+  !*** ./node_modules/html2canvas/dist/html2canvas.js ***!
+  \******************************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module, top-level-this-exports */
+/***/ (function(module) {
+
 /*!
  * html2canvas 1.0.0-rc.7 <https://html2canvas.hertzen.com>
  * Copyright (c) 2020 Niklas von Hertzen <https://hertzen.com>
  * Released under MIT License
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
-    (global = global || self, global.html2canvas = factory());
+     true ? module.exports = factory() :
+    0;
 }(this, function () { 'use strict';
 
     /*! *****************************************************************************
@@ -7065,3 +7399,81 @@
 
 }));
 //# sourceMappingURL=html2canvas.js.map
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => module['default'] :
+/******/ 				() => module;
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	// startup
+/******/ 	// Load entry module
+/******/ 	__webpack_require__("./js/main.js");
+/******/ 	// This entry module used 'exports' so it can't be inlined
+/******/ })()
+;
+//# sourceMappingURL=bundle.js.map

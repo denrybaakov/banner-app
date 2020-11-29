@@ -3,7 +3,7 @@ const { src, dest, watch, series } = require('gulp');
 const browserSync = require('browser-sync').create();
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
-// const proxyMiddleware = require('http-proxy-middleware');
+// const proxyMiddleware = require('htgutp-proxy-middleware');
 
 
 const fileCss = src(['./css/*.css', '!./css/*.min.css']);
@@ -15,26 +15,6 @@ const del = require('del');
 const minify = require('gulp-minify');
 const htmlmin = require('gulp-htmlmin');
 const tinypng = require('gulp-tinypng-compress');
-// const fileJs = src(['./dist/js/*.js', '!./dist/js/*.min.js']);
-
-// let corsMiddleware = require('cors-middleware');
-// let merry = require('merry');
-
-// let mw = merry.middleware;
-// let cors = corsMiddleware({
-//   methods: 'GET',
-//   origin: 'http://localhost:8080'
-// })
-
-// var app = merry()
-// app.use(cors)
-// app.route('GET', '/', homeRoute)
-
-// function homeRoute(req, res, ctx) {
-//   console.log(res.getHeader('access-control-allow-origin'));
-//   ctx.send(200, { msg: 'woah cors headers are all set' });
-// }
-
 
 // Static server
 function bs() {
@@ -42,10 +22,10 @@ function bs() {
   browserSync.init({
     server: {
       baseDir: "./",
-      // middleware: function (req, res, next) {
-      //   res.setHeader('Access-Control-Allow-Origin', '*');
-      //   next();
-      // }
+      middleware: function (req, res, next) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        next();
+      }
     },
     port: 3999,
     cors: true,
@@ -59,15 +39,19 @@ function bs() {
   watch("./js/*.js").on('change', browserSync.reload);
 }
 
-
+const proxy = require('html2canvas-proxy');
 let express = require('express');
-let app = express();
-let mw = require('expressjs-mw');
 
-// let allowList = [/\.*/];
+let app = express();
+app.use('/', proxy());
+console.log('server run ');
+// let app = express();
+// let mw = require('expressjs-mw');
+
+// // let allowList = [/\.*/];
+// // app.use(mw.crossOrigin.allowedOrigin(allowList));
+// let allowList = ["www.g.cn", /http:\/\/localhost*/, /\*.github.com/];
 // app.use(mw.crossOrigin.allowedOrigin(allowList));
-let allowList = ["www.g.cn", /http:\/\/localhost*/, /\*.github.com/]
-app.use(mw.crossOrigin.allowedOrigin(allowList));
 
 // sass
 function serveSass() {
@@ -94,7 +78,7 @@ function minCss(done) {
 }
 
 function buildJS(done) {
-  src(['js/**.js', '!js/**.min.js'])
+  src(['js/bundle.js', '!js/**.min.js'])
     .pipe(minify({
       ext: {
         min: '.min.js'
@@ -104,19 +88,6 @@ function buildJS(done) {
   src('js/**.min.js').pipe(dest('./dist/js/'))
   del(['./dist/js/*.js', '!./dist/js/*.min.js']);
 
-  done();
-}
-
-function html(done) {
-  src('**.html').pipe(htmlmin({ collapseWhitespace: true })).pipe(dest('./dist/'))
-  done();
-}
-
-function php(done) {
-  src('**.php')
-    .pipe(dest('./dist/'))
-  src('phpMailer/**/**')
-    .pipe(dest('./dist/phpMailer'))
   done();
 }
 
@@ -143,6 +114,6 @@ function imagemin(done) {
 }
 
 exports.serve = bs;
-exports.build = series(minCss, buildJS, html, php, fonts, imagemin);
+exports.build = series(minCss, buildJS, fonts, imagemin);
 
 

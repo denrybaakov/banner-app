@@ -12,7 +12,7 @@
   padding: 3rem
   border-right: 1px solid rgba(#C4C4C4, 0.2)
   overflow-y: hidden
-  &:scrollbar
+  &::scrollbar
     width: 0px;
     opacity: 0
     background: rgba(255, 255, 255, 0.0);
@@ -69,7 +69,7 @@
     display: flex 
     justify-content: space-around
     align-items: center
-    margin-bottom: 5rem
+    margin-bottom: 2rem
   &__code 
     margin-bottom: 5rem
     width: 100%
@@ -78,6 +78,16 @@
     display: flex 
     justify-content: space-around
     align-items: center
+  
+.block-img 
+  display: flex
+  align-items: center 
+  justify-content: space-around
+  &__item 
+    padding: 1rem
+    cursor: pointer
+    &:hover
+      background-color: $white
 
 
 

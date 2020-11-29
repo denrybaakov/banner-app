@@ -19,6 +19,7 @@
   &__container
     margin-top: 1rem
     margin-bottom: 1rem
+    padding: 1.5rem
     display: inline-block
     position: absolute 
     width: 400px
@@ -27,7 +28,6 @@
     bottom: 100px
     max-width: 95%
     max-height: 600px !important
-    box-shadow: 2px -1px 14px 0px #828282;
     
     // // left: 50%
     // transform: translateY(-10%)
@@ -48,10 +48,19 @@
   &__image-block
     display: none
     justify-content: center
-    width: 40%
+    align-items: center
+    width: 35%
+    height: 35%
+    min-width: 30px
+    min-height: 30px
     // height: 80px
     margin: 0 0 0 auto
     // height: 500px
+
+img 
+  width: 100%
+  height: 100%
+  object-fit: contain
 
 a[data-color="Red"]
   background: linear-gradient(0deg, rgba(247,69,69,1) 0%, rgba(249,124,84,1) 66%);
@@ -100,8 +109,6 @@ a[data-color="Purple"]
       position: static 
       width: 400px
       height: 650px
-      top: none
-      bottom: none
   
 
 

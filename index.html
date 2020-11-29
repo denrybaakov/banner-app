@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Avito editor-app | Rybakov</title>
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="dist/css/index.min.css">
 </head>
 
 <body>
@@ -33,6 +33,18 @@
         <input type="text" name="inpURL" id="url" class="setting__inpUrl" placeholder="Введите dataURI">
         <span class="setting__inpURL-count"></span>
       </label>
+
+      <div class="setting__field block-img">
+        <div class="block-img__item">
+          <img id="imageLeft" src="img/imgLeft.png" alt="Left" width="30" height="30">
+        </div>
+        <div class="block-img__item">
+          <img id="imageCenter" src="img/imgCenter.png" alt="Center" width="32" height="32">
+        </div>
+        <div class="block-img__item">
+          <img id="imageRight" src="img/imgRight.png" alt="Rigth" width="30" height="30">
+        </div>
+      </div>
 
 
 
@@ -85,7 +97,7 @@
 
   </main>
 
-  <script src="js/bundle.js"></script>
+  <script src="dist/js/bundle.min.js"></script>
 </body>
 
 </html>

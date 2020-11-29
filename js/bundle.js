@@ -15,9 +15,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _module_sizeCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module/sizeCard */ "./js/module/sizeCard.js");
 /* harmony import */ var _module_titleCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./module/titleCard */ "./js/module/titleCard.js");
 /* harmony import */ var _module_textCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./module/textCard */ "./js/module/textCard.js");
-/* harmony import */ var _module_colorCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./module/colorCard */ "./js/module/colorCard.js");
-/* harmony import */ var _module_urlCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./module/urlCard */ "./js/module/urlCard.js");
-/* harmony import */ var _module_btnsCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./module/btnsCard */ "./js/module/btnsCard.js");
+/* harmony import */ var _module_urlCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./module/urlCard */ "./js/module/urlCard.js");
+/* harmony import */ var _module_imgPosition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./module/imgPosition */ "./js/module/imgPosition.js");
+/* harmony import */ var _module_colorCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./module/colorCard */ "./js/module/colorCard.js");
+/* harmony import */ var _module_btnsCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./module/btnsCard */ "./js/module/btnsCard.js");
+
 
 
 
@@ -26,6 +28,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
   const width = document.querySelector('#width');
   const height = document.querySelector('#height');
   const title = document.querySelector('#title');
@@ -34,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const colors = document.querySelectorAll('.setting__radio');
 
   const container = document.querySelector('.preview__container');
+  const imgBlock = document.querySelector('.preview__image-block');
 
   const btnJson = document.querySelector('#json');
   const btnHtml = document.querySelector('#html');
@@ -51,11 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
   (0,_module_sizeCard__WEBPACK_IMPORTED_MODULE_0__.default)(width, height, container, card);
   (0,_module_titleCard__WEBPACK_IMPORTED_MODULE_1__.default)(title, card);
   (0,_module_textCard__WEBPACK_IMPORTED_MODULE_2__.default)(text, card);
-  (0,_module_colorCard__WEBPACK_IMPORTED_MODULE_3__.default)(colors, container, card);
-  (0,_module_urlCard__WEBPACK_IMPORTED_MODULE_4__.default)(imgUrl, container, card);
-  (0,_module_btnsCard__WEBPACK_IMPORTED_MODULE_5__.default)(btnJson, btnHtml, btnPng, container, card);
-
-  setTimeout(() => console.log(card), 12000);
+  (0,_module_urlCard__WEBPACK_IMPORTED_MODULE_3__.default)(imgUrl, container, imgBlock, card);
+  (0,_module_imgPosition__WEBPACK_IMPORTED_MODULE_4__.default)(imgBlock);
+  (0,_module_colorCard__WEBPACK_IMPORTED_MODULE_5__.default)(colors, container, card);
+  (0,_module_btnsCard__WEBPACK_IMPORTED_MODULE_6__.default)(btnJson, btnHtml, btnPng, container, card);
 });
 
 /***/ }),
@@ -114,16 +117,16 @@ function btnsCard(json, html, png, container, card) {
     html2canvas__WEBPACK_IMPORTED_MODULE_0___default()(container, { useCORS: true })
       .then(canvas => {
         const dataURL = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
-        if (window.navigator.msSaveBlob) {
-          window.navigator.msSaveBlob(canvas.msToBlob(), 'canvas-image.png');
-        } else {
-          const a = document.createElement('a');
-          container.appendChild(a);
-          a.href = dataURL;
-          a.download = Math.floor(Math.random() * 99) + '_Banner-Avito.png';
-          a.click();
-          container.removeChild(a);
-        }
+        // if (window.navigator.msSaveBlob) {
+        //   window.navigator.msSaveBlob(canvas.msToBlob(), 'canvas-image.png');
+        // } else {
+        const a = document.createElement('a');
+        container.appendChild(a);
+        a.href = dataURL;
+        a.download = Math.floor(Math.random() * 99) + '_Banner-Avito.png';
+        a.click();
+        container.removeChild(a);
+        // }
       })
       .catch(err => {
         alert(`Произошла ошибка ${err}`);
@@ -161,6 +164,36 @@ function colorCard(colors, container, card) {
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (colorCard);
+
+/***/ }),
+
+/***/ "./js/module/imgPosition.js":
+/*!**********************************!*\
+  !*** ./js/module/imgPosition.js ***!
+  \**********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+function imgPosition(imgBlock) {
+  const imgLeft = document.querySelector('#imageLeft');
+  const imgCenter = document.querySelector('#imageCenter');
+  const imgRight = document.querySelector('#imageRight');
+
+  imgLeft.addEventListener('click', () => imgBlock.style.margin = `0 auto 0 0`);
+  imgCenter.addEventListener('click', () => imgBlock.style.margin = `0 auto 0`);
+  imgRight.addEventListener('click', () => imgBlock.style.margin = `0 0 0 auto`);
+
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (imgPosition);
 
 /***/ }),
 
@@ -297,9 +330,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-function imageURL(imgUrl, container, card) {
-  const imgBlock = document.querySelector('.preview__image-block');
-  const img = document.querySelector('img');
+function imageURL(imgUrl, container, imgBlock, card) {
+
+  const img = imgBlock.querySelector('img');
   imgUrl.addEventListener('change', () => {
     let str = imgUrl.value;
     if (str.length > 4) {

@@ -1,6 +1,6 @@
-function imageURL(imgUrl, container, card) {
-  const imgBlock = document.querySelector('.preview__image-block');
-  const img = document.querySelector('img');
+function imageURL(imgUrl, container, imgBlock, card) {
+
+  const img = imgBlock.querySelector('img');
   imgUrl.addEventListener('change', () => {
     let str = imgUrl.value;
     if (str.length > 4) {

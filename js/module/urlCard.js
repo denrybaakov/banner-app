@@ -10,10 +10,10 @@ function imageURL(imgUrl, container, imgBlock, card) {
       img.style.cssText = `
         width: 100%;
         heigth: 100%;
-        object-fit: cover
+        object-fit: contain
         background: url('${str}');`;
     } else {
-      img.alt = 'Path Not Found!';
+      img.alt = 'Путь картинки указан не верно!';
     }
     if (str.length == 0) {
       imgBlock.style.display = 'none';

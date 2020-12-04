@@ -30,21 +30,16 @@ function btnsCard(json, html, png, container, card) {
       });
   });
 
-
   png.addEventListener('click', () => {
     html2canvas(container, { useCORS: true })
       .then(canvas => {
         const dataURL = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
-        // if (window.navigator.msSaveBlob) {
-        //   window.navigator.msSaveBlob(canvas.msToBlob(), 'canvas-image.png');
-        // } else {
         const a = document.createElement('a');
         container.appendChild(a);
         a.href = dataURL;
         a.download = Math.floor(Math.random() * 99) + '_Banner-Avito.png';
         a.click();
         container.removeChild(a);
-        // }
       })
       .catch(err => {
         alert(`Произошла ошибка ${err}`);

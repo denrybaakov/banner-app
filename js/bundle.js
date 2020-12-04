@@ -112,21 +112,16 @@ function btnsCard(json, html, png, container, card) {
       });
   });
 
-
   png.addEventListener('click', () => {
     html2canvas__WEBPACK_IMPORTED_MODULE_0___default()(container, { useCORS: true })
       .then(canvas => {
         const dataURL = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
-        // if (window.navigator.msSaveBlob) {
-        //   window.navigator.msSaveBlob(canvas.msToBlob(), 'canvas-image.png');
-        // } else {
         const a = document.createElement('a');
         container.appendChild(a);
         a.href = dataURL;
         a.download = Math.floor(Math.random() * 99) + '_Banner-Avito.png';
         a.click();
         container.removeChild(a);
-        // }
       })
       .catch(err => {
         alert(`Произошла ошибка ${err}`);
@@ -213,32 +208,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 function sizeCard(width, height, container, card) {
+
   width.addEventListener('change', () => {
+    const widthContainer = (width) => {
+      container.style.width = `${width.value}px`;
+    };
     if (width.value > 1200) {
       width.value = 1199;
-      container.style.width = `${width.value}px`;
+      widthContainer(width);
     } else if (width.value <= 99) {
       width.value = 100;
-      container.style.width = `${width.value}px`;
+      widthContainer(width);
     } else {
-      container.style.width = `${width.value}px`;
+      widthContainer(width);
     }
     card.width = `${width.value}px`;
   });
 
   height.addEventListener('change', () => {
+    const heightContainer = (height) => {
+      container.style.height = `${height.value}px`;
+    };
     if (height.value > 800) {
       height.value = 799;
-      container.style.height = `${height.value}px`;
+      heightContainer(height);
     } else if (height.value <= 99) {
       height.value = 100;
-      container.style.height = `${height.value}px`;
+      heightContainer(height);
     } else {
-      container.style.height = `${height.value}px`;
+      heightContainer(height);
     }
     card.height = `${height.value}px`;
   });
-
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sizeCard);
@@ -295,14 +296,16 @@ function titleCard(title, card) {
   const titleStrong = document.querySelector('.preview__title');
   const maxLength = title.getAttribute('maxlength');
   const count = document.querySelector('span.setting__inpTitle-count');
+  const warningTitle = (bgColor = '', borderColor = '') => {
+    count.style.backgroundColor = `${bgColor}`;
+    title.style.border = `1px solid ${borderColor}`;
+  };
 
   title.addEventListener('input', (e) => {
     const valueLength = e.target.value.length;
     const rightCharValue = maxLength - valueLength;
-    if (rightCharValue <= 0) {
-      count.style.backgroundColor = 'tomato';
-      title.style.border = '1px solid tomato';
-    }
+    rightCharValue <= 0 ? warningTitle('tomato', 'tomato') : warningTitle();
+
     if (title.value.length >= 0 && title.value.length < 31) {
       titleStrong.textContent = title.value;
       card.title = titleStrong.textContent;
@@ -342,10 +345,10 @@ function imageURL(imgUrl, container, imgBlock, card) {
       img.style.cssText = `
         width: 100%;
         heigth: 100%;
-        object-fit: cover
+        object-fit: contain
         background: url('${str}');`;
     } else {
-      img.alt = 'Path Not Found!';
+      img.alt = 'Путь картинки указан не верно!';
     }
     if (str.length == 0) {
       imgBlock.style.display = 'none';

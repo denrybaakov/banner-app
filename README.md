@@ -7,6 +7,6 @@
   1. Плагин для [Opera](https://addons.opera.com/ru/extensions/details/cors-toggle/ "cors access-control-allow-origin")
 
 ### Первый старт
-Скачайте командой `git clone` **banner-app** и запустите `npm install && npm start` 
+Скачайте командой `git clone` репозиторий **banner-app** и запустите `npm install && npm start` 
 
 *Внешняя [Ссылка](http://rybakovcorp.ru/avito-app/ '') на проект*
